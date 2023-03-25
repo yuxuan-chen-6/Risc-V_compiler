@@ -1,0 +1,1955 @@
+Terminals unused in grammar
+
+    STRING_LITERAL
+    PTR_OP
+    INC_OP
+    DEC_OP
+    LEFT_OP
+    RIGHT_OP
+    GE_OP
+    NE_OP
+    MUL_ASSIGN
+    DIV_ASSIGN
+    MOD_ASSIGN
+    ADD_ASSIGN
+    SUB_ASSIGN
+    LEFT_ASSIGN
+    RIGHT_ASSIGN
+    AND_ASSIGN
+    XOR_ASSIGN
+    OR_ASSIGN
+    TYPEDEF
+    EXTERN
+    STATIC
+    AUTO
+    REGISTER
+    CONST
+    VOLATILE
+    STRUCT
+    UNION
+    ENUM
+    ELLIPSIS
+    CASE
+    DEFAULT
+    SWITCH
+    DO
+    GOTO
+    CONTINUE
+    BREAK
+
+
+State 111 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: ROOT $end
+
+    1 ROOT: program
+
+    2 type_specifier: VOID
+    3               | CHAR
+    4               | SHORT
+    5               | INT
+    6               | UNSIGNED
+    7               | LONG
+    8               | FLOAT
+    9               | DOUBLE
+   10               | SIGNED
+   11               | TYPE_NAME
+
+   12 jump_statement: RETURN arithmetic_expression ';'
+
+   13 statement: expression_statement
+   14          | jump_statement
+   15          | compound_statement
+   16          | if_statement
+   17          | while_statement
+   18          | for_statement
+
+   19 for_statement: FOR '(' expression_statement arithmetic_expression ';' for_expression ')' compound_statement
+   20              | FOR '(' expression_statement arithmetic_expression ';' for_expression ')' '{' '}'
+
+   21 for_expression: IDENTIFIER '=' arithmetic_expression
+   22               | IDENTIFIER '=' '+' '+'
+
+   23 while_statement: WHILE '(' arithmetic_expression ')' statement
+   24                | WHILE '(' arithmetic_expression ')' '{' '}'
+
+   25 if_statement: IF '(' arithmetic_expression ')' statement
+   26             | IF '(' arithmetic_expression ')' statement ELSE statement
+
+   27 compound_statement: '{' statement_list '}'
+
+   28 statement_list: statement
+   29               | statement_list statement
+
+   30 expression_statement: type_specifier IDENTIFIER '=' arithmetic_expression ';'
+   31                     | type_specifier IDENTIFIER ';'
+   32                     | IDENTIFIER '=' arithmetic_expression ';'
+   33                     | type_specifier IDENTIFIER '[' CONSTANT ']' ';'
+   34                     | IDENTIFIER '[' arithmetic_expression ']' '=' arithmetic_expression ';'
+
+   35 parameter_list: parameter_declaration
+   36               | parameter_list ',' parameter_declaration
+
+   37 parameter_declaration: type_specifier IDENTIFIER
+
+   38 function_definition: type_specifier IDENTIFIER '(' ')' compound_statement
+   39                    | type_specifier IDENTIFIER '(' parameter_list ')' compound_statement
+   40                    | type_specifier IDENTIFIER '(' ')' ';'
+   41                    | type_specifier IDENTIFIER '(' parameter_list ')' ';'
+
+   42 program: function_definition
+   43        | statement_list function_definition
+   44        | program function_definition
+
+   45 arithmetic_expression: arithmetic_expression '+' term
+   46                      | arithmetic_expression '-' term
+   47                      | term
+
+   48 term: term '*' factor
+   49     | term '/' factor
+   50     | term '<' factor
+   51     | term LE_OP factor
+   52     | term EQ_OP factor
+   53     | term '&' factor
+   54     | term '|' factor
+   55     | term '^' factor
+   56     | term AND_OP factor
+   57     | term OR_OP factor
+   58     | term '>' factor
+   59     | factor
+
+   60 factor: '(' arithmetic_expression ')'
+   61       | IDENTIFIER
+   62       | CONSTANT
+   63       | IDENTIFIER '[' arithmetic_expression ']'
+   64       | SIZEOF '(' IDENTIFIER ')'
+   65       | SIZEOF '(' type_specifier ')'
+   66       | IDENTIFIER '(' ')'
+   67       | IDENTIFIER '(' return_parameter ')'
+
+   68 return_parameter: return_parameter ',' factor
+   69                 | factor
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '&' (38) 53
+    '(' (40) 19 20 23 24 25 26 38 39 40 41 60 64 65 66 67
+    ')' (41) 19 20 23 24 25 26 38 39 40 41 60 64 65 66 67
+    '*' (42) 48
+    '+' (43) 22 45
+    ',' (44) 36 68
+    '-' (45) 46
+    '/' (47) 49
+    ';' (59) 12 19 20 30 31 32 33 34 40 41
+    '<' (60) 50
+    '=' (61) 21 22 30 32 34
+    '>' (62) 58
+    '[' (91) 33 34 63
+    ']' (93) 33 34 63
+    '^' (94) 55
+    '{' (123) 20 24 27
+    '|' (124) 54
+    '}' (125) 20 24 27
+    error (256)
+    IDENTIFIER <string> (258) 21 22 30 31 32 33 34 37 38 39 40 41 61 63 64 66 67
+    CONSTANT <number> (259) 33 62
+    STRING_LITERAL (260)
+    SIZEOF (261) 64 65
+    PTR_OP (262)
+    INC_OP (263)
+    DEC_OP (264)
+    LEFT_OP (265)
+    RIGHT_OP (266)
+    LE_OP (267) 51
+    GE_OP (268)
+    EQ_OP (269) 52
+    NE_OP (270)
+    AND_OP (271) 56
+    OR_OP (272) 57
+    MUL_ASSIGN (273)
+    DIV_ASSIGN (274)
+    MOD_ASSIGN (275)
+    ADD_ASSIGN (276)
+    SUB_ASSIGN (277)
+    LEFT_ASSIGN (278)
+    RIGHT_ASSIGN (279)
+    AND_ASSIGN (280)
+    XOR_ASSIGN (281)
+    OR_ASSIGN (282)
+    TYPE_NAME (283) 11
+    TYPEDEF (284)
+    EXTERN (285)
+    STATIC (286)
+    AUTO (287)
+    REGISTER (288)
+    CHAR (289) 3
+    SHORT (290) 4
+    INT (291) 5
+    LONG (292) 7
+    SIGNED (293) 10
+    UNSIGNED (294) 6
+    FLOAT (295) 8
+    DOUBLE (296) 9
+    CONST (297)
+    VOLATILE (298)
+    VOID (299) 2
+    STRUCT (300)
+    UNION (301)
+    ENUM (302)
+    ELLIPSIS (303)
+    CASE (304)
+    DEFAULT (305)
+    IF (306) 25 26
+    ELSE (307) 26
+    SWITCH (308)
+    WHILE (309) 23 24
+    DO (310)
+    FOR (311) 19 20
+    GOTO (312)
+    CONTINUE (313)
+    BREAK (314)
+    RETURN (315) 12
+
+
+Nonterminals, with rules where they appear
+
+    $accept (79)
+        on left: 0
+    ROOT (80)
+        on left: 1
+        on right: 0
+    type_specifier <string> (81)
+        on left: 2 3 4 5 6 7 8 9 10 11
+        on right: 30 31 33 37 38 39 40 41 65
+    jump_statement <expr> (82)
+        on left: 12
+        on right: 14
+    statement <expr> (83)
+        on left: 13 14 15 16 17 18
+        on right: 23 25 26 28 29
+    for_statement <expr> (84)
+        on left: 19 20
+        on right: 18
+    for_expression <expr> (85)
+        on left: 21 22
+        on right: 19 20
+    while_statement <expr> (86)
+        on left: 23 24
+        on right: 17
+    if_statement <expr> (87)
+        on left: 25 26
+        on right: 16
+    compound_statement <expr> (88)
+        on left: 27
+        on right: 15 19 38 39
+    statement_list <expr> (89)
+        on left: 28 29
+        on right: 27 29 43
+    expression_statement <expr> (90)
+        on left: 30 31 32 33 34
+        on right: 13 19 20
+    parameter_list <expr> (91)
+        on left: 35 36
+        on right: 36 39 41
+    parameter_declaration <expr> (92)
+        on left: 37
+        on right: 35 36
+    function_definition <expr> (93)
+        on left: 38 39 40 41
+        on right: 42 43 44
+    program <expr> (94)
+        on left: 42 43 44
+        on right: 1 44
+    arithmetic_expression <expr> (95)
+        on left: 45 46 47
+        on right: 12 19 20 21 23 24 25 26 30 32 34 45 46 60 63
+    term <expr> (96)
+        on left: 48 49 50 51 52 53 54 55 56 57 58 59
+        on right: 45 46 47 48 49 50 51 52 53 54 55 56 57 58
+    factor <expr> (97)
+        on left: 60 61 62 63 64 65 66 67
+        on right: 48 49 50 51 52 53 54 55 56 57 58 59 68 69
+    return_parameter <expr> (98)
+        on left: 68 69
+        on right: 67 68
+
+
+State 0
+
+    0 $accept: . ROOT $end
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+
+    ROOT                  go to state 17
+    type_specifier        go to state 18
+    jump_statement        go to state 19
+    statement             go to state 20
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    statement_list        go to state 25
+    expression_statement  go to state 26
+    function_definition   go to state 27
+    program               go to state 28
+
+
+State 1
+
+   32 expression_statement: IDENTIFIER . '=' arithmetic_expression ';'
+   34                     | IDENTIFIER . '[' arithmetic_expression ']' '=' arithmetic_expression ';'
+
+    '='  shift, and go to state 29
+    '['  shift, and go to state 30
+
+
+State 2
+
+   11 type_specifier: TYPE_NAME .
+
+    $default  reduce using rule 11 (type_specifier)
+
+
+State 3
+
+    3 type_specifier: CHAR .
+
+    $default  reduce using rule 3 (type_specifier)
+
+
+State 4
+
+    4 type_specifier: SHORT .
+
+    $default  reduce using rule 4 (type_specifier)
+
+
+State 5
+
+    5 type_specifier: INT .
+
+    $default  reduce using rule 5 (type_specifier)
+
+
+State 6
+
+    7 type_specifier: LONG .
+
+    $default  reduce using rule 7 (type_specifier)
+
+
+State 7
+
+   10 type_specifier: SIGNED .
+
+    $default  reduce using rule 10 (type_specifier)
+
+
+State 8
+
+    6 type_specifier: UNSIGNED .
+
+    $default  reduce using rule 6 (type_specifier)
+
+
+State 9
+
+    8 type_specifier: FLOAT .
+
+    $default  reduce using rule 8 (type_specifier)
+
+
+State 10
+
+    9 type_specifier: DOUBLE .
+
+    $default  reduce using rule 9 (type_specifier)
+
+
+State 11
+
+    2 type_specifier: VOID .
+
+    $default  reduce using rule 2 (type_specifier)
+
+
+State 12
+
+   25 if_statement: IF . '(' arithmetic_expression ')' statement
+   26             | IF . '(' arithmetic_expression ')' statement ELSE statement
+
+    '('  shift, and go to state 31
+
+
+State 13
+
+   23 while_statement: WHILE . '(' arithmetic_expression ')' statement
+   24                | WHILE . '(' arithmetic_expression ')' '{' '}'
+
+    '('  shift, and go to state 32
+
+
+State 14
+
+   19 for_statement: FOR . '(' expression_statement arithmetic_expression ';' for_expression ')' compound_statement
+   20              | FOR . '(' expression_statement arithmetic_expression ';' for_expression ')' '{' '}'
+
+    '('  shift, and go to state 33
+
+
+State 15
+
+   12 jump_statement: RETURN . arithmetic_expression ';'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 38
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 16
+
+   27 compound_statement: '{' . statement_list '}'
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+
+    type_specifier        go to state 41
+    jump_statement        go to state 19
+    statement             go to state 20
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    statement_list        go to state 42
+    expression_statement  go to state 26
+
+
+State 17
+
+    0 $accept: ROOT . $end
+
+    $end  shift, and go to state 43
+
+
+State 18
+
+   30 expression_statement: type_specifier . IDENTIFIER '=' arithmetic_expression ';'
+   31                     | type_specifier . IDENTIFIER ';'
+   33                     | type_specifier . IDENTIFIER '[' CONSTANT ']' ';'
+   38 function_definition: type_specifier . IDENTIFIER '(' ')' compound_statement
+   39                    | type_specifier . IDENTIFIER '(' parameter_list ')' compound_statement
+   40                    | type_specifier . IDENTIFIER '(' ')' ';'
+   41                    | type_specifier . IDENTIFIER '(' parameter_list ')' ';'
+
+    IDENTIFIER  shift, and go to state 44
+
+
+State 19
+
+   14 statement: jump_statement .
+
+    $default  reduce using rule 14 (statement)
+
+
+State 20
+
+   28 statement_list: statement .
+
+    $default  reduce using rule 28 (statement_list)
+
+
+State 21
+
+   18 statement: for_statement .
+
+    $default  reduce using rule 18 (statement)
+
+
+State 22
+
+   17 statement: while_statement .
+
+    $default  reduce using rule 17 (statement)
+
+
+State 23
+
+   16 statement: if_statement .
+
+    $default  reduce using rule 16 (statement)
+
+
+State 24
+
+   15 statement: compound_statement .
+
+    $default  reduce using rule 15 (statement)
+
+
+State 25
+
+   29 statement_list: statement_list . statement
+   43 program: statement_list . function_definition
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+
+    type_specifier        go to state 18
+    jump_statement        go to state 19
+    statement             go to state 45
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    expression_statement  go to state 26
+    function_definition   go to state 46
+
+
+State 26
+
+   13 statement: expression_statement .
+
+    $default  reduce using rule 13 (statement)
+
+
+State 27
+
+   42 program: function_definition .
+
+    $default  reduce using rule 42 (program)
+
+
+State 28
+
+    1 ROOT: program .
+   44 program: program . function_definition
+
+    TYPE_NAME  shift, and go to state 2
+    CHAR       shift, and go to state 3
+    SHORT      shift, and go to state 4
+    INT        shift, and go to state 5
+    LONG       shift, and go to state 6
+    SIGNED     shift, and go to state 7
+    UNSIGNED   shift, and go to state 8
+    FLOAT      shift, and go to state 9
+    DOUBLE     shift, and go to state 10
+    VOID       shift, and go to state 11
+
+    $default  reduce using rule 1 (ROOT)
+
+    type_specifier       go to state 47
+    function_definition  go to state 48
+
+
+State 29
+
+   32 expression_statement: IDENTIFIER '=' . arithmetic_expression ';'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 49
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 30
+
+   34 expression_statement: IDENTIFIER '[' . arithmetic_expression ']' '=' arithmetic_expression ';'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 50
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 31
+
+   25 if_statement: IF '(' . arithmetic_expression ')' statement
+   26             | IF '(' . arithmetic_expression ')' statement ELSE statement
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 51
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 32
+
+   23 while_statement: WHILE '(' . arithmetic_expression ')' statement
+   24                | WHILE '(' . arithmetic_expression ')' '{' '}'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 52
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 33
+
+   19 for_statement: FOR '(' . expression_statement arithmetic_expression ';' for_expression ')' compound_statement
+   20              | FOR '(' . expression_statement arithmetic_expression ';' for_expression ')' '{' '}'
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+
+    type_specifier        go to state 41
+    expression_statement  go to state 53
+
+
+State 34
+
+   61 factor: IDENTIFIER .
+   63       | IDENTIFIER . '[' arithmetic_expression ']'
+   66       | IDENTIFIER . '(' ')'
+   67       | IDENTIFIER . '(' return_parameter ')'
+
+    '('  shift, and go to state 54
+    '['  shift, and go to state 55
+
+    $default  reduce using rule 61 (factor)
+
+
+State 35
+
+   62 factor: CONSTANT .
+
+    $default  reduce using rule 62 (factor)
+
+
+State 36
+
+   64 factor: SIZEOF . '(' IDENTIFIER ')'
+   65       | SIZEOF . '(' type_specifier ')'
+
+    '('  shift, and go to state 56
+
+
+State 37
+
+   60 factor: '(' . arithmetic_expression ')'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 57
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 38
+
+   12 jump_statement: RETURN arithmetic_expression . ';'
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    ';'  shift, and go to state 58
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 39
+
+   47 arithmetic_expression: term .
+   48 term: term . '*' factor
+   49     | term . '/' factor
+   50     | term . '<' factor
+   51     | term . LE_OP factor
+   52     | term . EQ_OP factor
+   53     | term . '&' factor
+   54     | term . '|' factor
+   55     | term . '^' factor
+   56     | term . AND_OP factor
+   57     | term . OR_OP factor
+   58     | term . '>' factor
+
+    LE_OP   shift, and go to state 61
+    EQ_OP   shift, and go to state 62
+    AND_OP  shift, and go to state 63
+    OR_OP   shift, and go to state 64
+    '*'     shift, and go to state 65
+    '/'     shift, and go to state 66
+    '<'     shift, and go to state 67
+    '&'     shift, and go to state 68
+    '|'     shift, and go to state 69
+    '^'     shift, and go to state 70
+    '>'     shift, and go to state 71
+
+    $default  reduce using rule 47 (arithmetic_expression)
+
+
+State 40
+
+   59 term: factor .
+
+    $default  reduce using rule 59 (term)
+
+
+State 41
+
+   30 expression_statement: type_specifier . IDENTIFIER '=' arithmetic_expression ';'
+   31                     | type_specifier . IDENTIFIER ';'
+   33                     | type_specifier . IDENTIFIER '[' CONSTANT ']' ';'
+
+    IDENTIFIER  shift, and go to state 72
+
+
+State 42
+
+   27 compound_statement: '{' statement_list . '}'
+   29 statement_list: statement_list . statement
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+    '}'         shift, and go to state 73
+
+    type_specifier        go to state 41
+    jump_statement        go to state 19
+    statement             go to state 45
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    expression_statement  go to state 26
+
+
+State 43
+
+    0 $accept: ROOT $end .
+
+    $default  accept
+
+
+State 44
+
+   30 expression_statement: type_specifier IDENTIFIER . '=' arithmetic_expression ';'
+   31                     | type_specifier IDENTIFIER . ';'
+   33                     | type_specifier IDENTIFIER . '[' CONSTANT ']' ';'
+   38 function_definition: type_specifier IDENTIFIER . '(' ')' compound_statement
+   39                    | type_specifier IDENTIFIER . '(' parameter_list ')' compound_statement
+   40                    | type_specifier IDENTIFIER . '(' ')' ';'
+   41                    | type_specifier IDENTIFIER . '(' parameter_list ')' ';'
+
+    ';'  shift, and go to state 74
+    '('  shift, and go to state 75
+    '='  shift, and go to state 76
+    '['  shift, and go to state 77
+
+
+State 45
+
+   29 statement_list: statement_list statement .
+
+    $default  reduce using rule 29 (statement_list)
+
+
+State 46
+
+   43 program: statement_list function_definition .
+
+    $default  reduce using rule 43 (program)
+
+
+State 47
+
+   38 function_definition: type_specifier . IDENTIFIER '(' ')' compound_statement
+   39                    | type_specifier . IDENTIFIER '(' parameter_list ')' compound_statement
+   40                    | type_specifier . IDENTIFIER '(' ')' ';'
+   41                    | type_specifier . IDENTIFIER '(' parameter_list ')' ';'
+
+    IDENTIFIER  shift, and go to state 78
+
+
+State 48
+
+   44 program: program function_definition .
+
+    $default  reduce using rule 44 (program)
+
+
+State 49
+
+   32 expression_statement: IDENTIFIER '=' arithmetic_expression . ';'
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    ';'  shift, and go to state 79
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 50
+
+   34 expression_statement: IDENTIFIER '[' arithmetic_expression . ']' '=' arithmetic_expression ';'
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    '+'  shift, and go to state 59
+    ']'  shift, and go to state 80
+    '-'  shift, and go to state 60
+
+
+State 51
+
+   25 if_statement: IF '(' arithmetic_expression . ')' statement
+   26             | IF '(' arithmetic_expression . ')' statement ELSE statement
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    ')'  shift, and go to state 81
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 52
+
+   23 while_statement: WHILE '(' arithmetic_expression . ')' statement
+   24                | WHILE '(' arithmetic_expression . ')' '{' '}'
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    ')'  shift, and go to state 82
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 53
+
+   19 for_statement: FOR '(' expression_statement . arithmetic_expression ';' for_expression ')' compound_statement
+   20              | FOR '(' expression_statement . arithmetic_expression ';' for_expression ')' '{' '}'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 83
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 54
+
+   66 factor: IDENTIFIER '(' . ')'
+   67       | IDENTIFIER '(' . return_parameter ')'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+    ')'         shift, and go to state 84
+
+    factor            go to state 85
+    return_parameter  go to state 86
+
+
+State 55
+
+   63 factor: IDENTIFIER '[' . arithmetic_expression ']'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 87
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 56
+
+   64 factor: SIZEOF '(' . IDENTIFIER ')'
+   65       | SIZEOF '(' . type_specifier ')'
+
+    IDENTIFIER  shift, and go to state 88
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+
+    type_specifier  go to state 89
+
+
+State 57
+
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+   60 factor: '(' arithmetic_expression . ')'
+
+    ')'  shift, and go to state 90
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 58
+
+   12 jump_statement: RETURN arithmetic_expression ';' .
+
+    $default  reduce using rule 12 (jump_statement)
+
+
+State 59
+
+   45 arithmetic_expression: arithmetic_expression '+' . term
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    term    go to state 91
+    factor  go to state 40
+
+
+State 60
+
+   46 arithmetic_expression: arithmetic_expression '-' . term
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    term    go to state 92
+    factor  go to state 40
+
+
+State 61
+
+   51 term: term LE_OP . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 93
+
+
+State 62
+
+   52 term: term EQ_OP . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 94
+
+
+State 63
+
+   56 term: term AND_OP . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 95
+
+
+State 64
+
+   57 term: term OR_OP . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 96
+
+
+State 65
+
+   48 term: term '*' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 97
+
+
+State 66
+
+   49 term: term '/' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 98
+
+
+State 67
+
+   50 term: term '<' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 99
+
+
+State 68
+
+   53 term: term '&' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 100
+
+
+State 69
+
+   54 term: term '|' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 101
+
+
+State 70
+
+   55 term: term '^' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 102
+
+
+State 71
+
+   58 term: term '>' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 103
+
+
+State 72
+
+   30 expression_statement: type_specifier IDENTIFIER . '=' arithmetic_expression ';'
+   31                     | type_specifier IDENTIFIER . ';'
+   33                     | type_specifier IDENTIFIER . '[' CONSTANT ']' ';'
+
+    ';'  shift, and go to state 74
+    '='  shift, and go to state 76
+    '['  shift, and go to state 77
+
+
+State 73
+
+   27 compound_statement: '{' statement_list '}' .
+
+    $default  reduce using rule 27 (compound_statement)
+
+
+State 74
+
+   31 expression_statement: type_specifier IDENTIFIER ';' .
+
+    $default  reduce using rule 31 (expression_statement)
+
+
+State 75
+
+   38 function_definition: type_specifier IDENTIFIER '(' . ')' compound_statement
+   39                    | type_specifier IDENTIFIER '(' . parameter_list ')' compound_statement
+   40                    | type_specifier IDENTIFIER '(' . ')' ';'
+   41                    | type_specifier IDENTIFIER '(' . parameter_list ')' ';'
+
+    TYPE_NAME  shift, and go to state 2
+    CHAR       shift, and go to state 3
+    SHORT      shift, and go to state 4
+    INT        shift, and go to state 5
+    LONG       shift, and go to state 6
+    SIGNED     shift, and go to state 7
+    UNSIGNED   shift, and go to state 8
+    FLOAT      shift, and go to state 9
+    DOUBLE     shift, and go to state 10
+    VOID       shift, and go to state 11
+    ')'        shift, and go to state 104
+
+    type_specifier         go to state 105
+    parameter_list         go to state 106
+    parameter_declaration  go to state 107
+
+
+State 76
+
+   30 expression_statement: type_specifier IDENTIFIER '=' . arithmetic_expression ';'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 108
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 77
+
+   33 expression_statement: type_specifier IDENTIFIER '[' . CONSTANT ']' ';'
+
+    CONSTANT  shift, and go to state 109
+
+
+State 78
+
+   38 function_definition: type_specifier IDENTIFIER . '(' ')' compound_statement
+   39                    | type_specifier IDENTIFIER . '(' parameter_list ')' compound_statement
+   40                    | type_specifier IDENTIFIER . '(' ')' ';'
+   41                    | type_specifier IDENTIFIER . '(' parameter_list ')' ';'
+
+    '('  shift, and go to state 75
+
+
+State 79
+
+   32 expression_statement: IDENTIFIER '=' arithmetic_expression ';' .
+
+    $default  reduce using rule 32 (expression_statement)
+
+
+State 80
+
+   34 expression_statement: IDENTIFIER '[' arithmetic_expression ']' . '=' arithmetic_expression ';'
+
+    '='  shift, and go to state 110
+
+
+State 81
+
+   25 if_statement: IF '(' arithmetic_expression ')' . statement
+   26             | IF '(' arithmetic_expression ')' . statement ELSE statement
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+
+    type_specifier        go to state 41
+    jump_statement        go to state 19
+    statement             go to state 111
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    expression_statement  go to state 26
+
+
+State 82
+
+   23 while_statement: WHILE '(' arithmetic_expression ')' . statement
+   24                | WHILE '(' arithmetic_expression ')' . '{' '}'
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 112
+
+    type_specifier        go to state 41
+    jump_statement        go to state 19
+    statement             go to state 113
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    expression_statement  go to state 26
+
+
+State 83
+
+   19 for_statement: FOR '(' expression_statement arithmetic_expression . ';' for_expression ')' compound_statement
+   20              | FOR '(' expression_statement arithmetic_expression . ';' for_expression ')' '{' '}'
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    ';'  shift, and go to state 114
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 84
+
+   66 factor: IDENTIFIER '(' ')' .
+
+    $default  reduce using rule 66 (factor)
+
+
+State 85
+
+   69 return_parameter: factor .
+
+    $default  reduce using rule 69 (return_parameter)
+
+
+State 86
+
+   67 factor: IDENTIFIER '(' return_parameter . ')'
+   68 return_parameter: return_parameter . ',' factor
+
+    ')'  shift, and go to state 115
+    ','  shift, and go to state 116
+
+
+State 87
+
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+   63 factor: IDENTIFIER '[' arithmetic_expression . ']'
+
+    '+'  shift, and go to state 59
+    ']'  shift, and go to state 117
+    '-'  shift, and go to state 60
+
+
+State 88
+
+   64 factor: SIZEOF '(' IDENTIFIER . ')'
+
+    ')'  shift, and go to state 118
+
+
+State 89
+
+   65 factor: SIZEOF '(' type_specifier . ')'
+
+    ')'  shift, and go to state 119
+
+
+State 90
+
+   60 factor: '(' arithmetic_expression ')' .
+
+    $default  reduce using rule 60 (factor)
+
+
+State 91
+
+   45 arithmetic_expression: arithmetic_expression '+' term .
+   48 term: term . '*' factor
+   49     | term . '/' factor
+   50     | term . '<' factor
+   51     | term . LE_OP factor
+   52     | term . EQ_OP factor
+   53     | term . '&' factor
+   54     | term . '|' factor
+   55     | term . '^' factor
+   56     | term . AND_OP factor
+   57     | term . OR_OP factor
+   58     | term . '>' factor
+
+    LE_OP   shift, and go to state 61
+    EQ_OP   shift, and go to state 62
+    AND_OP  shift, and go to state 63
+    OR_OP   shift, and go to state 64
+    '*'     shift, and go to state 65
+    '/'     shift, and go to state 66
+    '<'     shift, and go to state 67
+    '&'     shift, and go to state 68
+    '|'     shift, and go to state 69
+    '^'     shift, and go to state 70
+    '>'     shift, and go to state 71
+
+    $default  reduce using rule 45 (arithmetic_expression)
+
+
+State 92
+
+   46 arithmetic_expression: arithmetic_expression '-' term .
+   48 term: term . '*' factor
+   49     | term . '/' factor
+   50     | term . '<' factor
+   51     | term . LE_OP factor
+   52     | term . EQ_OP factor
+   53     | term . '&' factor
+   54     | term . '|' factor
+   55     | term . '^' factor
+   56     | term . AND_OP factor
+   57     | term . OR_OP factor
+   58     | term . '>' factor
+
+    LE_OP   shift, and go to state 61
+    EQ_OP   shift, and go to state 62
+    AND_OP  shift, and go to state 63
+    OR_OP   shift, and go to state 64
+    '*'     shift, and go to state 65
+    '/'     shift, and go to state 66
+    '<'     shift, and go to state 67
+    '&'     shift, and go to state 68
+    '|'     shift, and go to state 69
+    '^'     shift, and go to state 70
+    '>'     shift, and go to state 71
+
+    $default  reduce using rule 46 (arithmetic_expression)
+
+
+State 93
+
+   51 term: term LE_OP factor .
+
+    $default  reduce using rule 51 (term)
+
+
+State 94
+
+   52 term: term EQ_OP factor .
+
+    $default  reduce using rule 52 (term)
+
+
+State 95
+
+   56 term: term AND_OP factor .
+
+    $default  reduce using rule 56 (term)
+
+
+State 96
+
+   57 term: term OR_OP factor .
+
+    $default  reduce using rule 57 (term)
+
+
+State 97
+
+   48 term: term '*' factor .
+
+    $default  reduce using rule 48 (term)
+
+
+State 98
+
+   49 term: term '/' factor .
+
+    $default  reduce using rule 49 (term)
+
+
+State 99
+
+   50 term: term '<' factor .
+
+    $default  reduce using rule 50 (term)
+
+
+State 100
+
+   53 term: term '&' factor .
+
+    $default  reduce using rule 53 (term)
+
+
+State 101
+
+   54 term: term '|' factor .
+
+    $default  reduce using rule 54 (term)
+
+
+State 102
+
+   55 term: term '^' factor .
+
+    $default  reduce using rule 55 (term)
+
+
+State 103
+
+   58 term: term '>' factor .
+
+    $default  reduce using rule 58 (term)
+
+
+State 104
+
+   38 function_definition: type_specifier IDENTIFIER '(' ')' . compound_statement
+   40                    | type_specifier IDENTIFIER '(' ')' . ';'
+
+    ';'  shift, and go to state 120
+    '{'  shift, and go to state 16
+
+    compound_statement  go to state 121
+
+
+State 105
+
+   37 parameter_declaration: type_specifier . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 122
+
+
+State 106
+
+   36 parameter_list: parameter_list . ',' parameter_declaration
+   39 function_definition: type_specifier IDENTIFIER '(' parameter_list . ')' compound_statement
+   41                    | type_specifier IDENTIFIER '(' parameter_list . ')' ';'
+
+    ')'  shift, and go to state 123
+    ','  shift, and go to state 124
+
+
+State 107
+
+   35 parameter_list: parameter_declaration .
+
+    $default  reduce using rule 35 (parameter_list)
+
+
+State 108
+
+   30 expression_statement: type_specifier IDENTIFIER '=' arithmetic_expression . ';'
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    ';'  shift, and go to state 125
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 109
+
+   33 expression_statement: type_specifier IDENTIFIER '[' CONSTANT . ']' ';'
+
+    ']'  shift, and go to state 126
+
+
+State 110
+
+   34 expression_statement: IDENTIFIER '[' arithmetic_expression ']' '=' . arithmetic_expression ';'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    arithmetic_expression  go to state 127
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 111
+
+   25 if_statement: IF '(' arithmetic_expression ')' statement .
+   26             | IF '(' arithmetic_expression ')' statement . ELSE statement
+
+    ELSE  shift, and go to state 128
+
+    ELSE      [reduce using rule 25 (if_statement)]
+    $default  reduce using rule 25 (if_statement)
+
+
+State 112
+
+   24 while_statement: WHILE '(' arithmetic_expression ')' '{' . '}'
+   27 compound_statement: '{' . statement_list '}'
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+    '}'         shift, and go to state 129
+
+    type_specifier        go to state 41
+    jump_statement        go to state 19
+    statement             go to state 20
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    statement_list        go to state 42
+    expression_statement  go to state 26
+
+
+State 113
+
+   23 while_statement: WHILE '(' arithmetic_expression ')' statement .
+
+    $default  reduce using rule 23 (while_statement)
+
+
+State 114
+
+   19 for_statement: FOR '(' expression_statement arithmetic_expression ';' . for_expression ')' compound_statement
+   20              | FOR '(' expression_statement arithmetic_expression ';' . for_expression ')' '{' '}'
+
+    IDENTIFIER  shift, and go to state 130
+
+    for_expression  go to state 131
+
+
+State 115
+
+   67 factor: IDENTIFIER '(' return_parameter ')' .
+
+    $default  reduce using rule 67 (factor)
+
+
+State 116
+
+   68 return_parameter: return_parameter ',' . factor
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+
+    factor  go to state 132
+
+
+State 117
+
+   63 factor: IDENTIFIER '[' arithmetic_expression ']' .
+
+    $default  reduce using rule 63 (factor)
+
+
+State 118
+
+   64 factor: SIZEOF '(' IDENTIFIER ')' .
+
+    $default  reduce using rule 64 (factor)
+
+
+State 119
+
+   65 factor: SIZEOF '(' type_specifier ')' .
+
+    $default  reduce using rule 65 (factor)
+
+
+State 120
+
+   40 function_definition: type_specifier IDENTIFIER '(' ')' ';' .
+
+    $default  reduce using rule 40 (function_definition)
+
+
+State 121
+
+   38 function_definition: type_specifier IDENTIFIER '(' ')' compound_statement .
+
+    $default  reduce using rule 38 (function_definition)
+
+
+State 122
+
+   37 parameter_declaration: type_specifier IDENTIFIER .
+
+    $default  reduce using rule 37 (parameter_declaration)
+
+
+State 123
+
+   39 function_definition: type_specifier IDENTIFIER '(' parameter_list ')' . compound_statement
+   41                    | type_specifier IDENTIFIER '(' parameter_list ')' . ';'
+
+    ';'  shift, and go to state 133
+    '{'  shift, and go to state 16
+
+    compound_statement  go to state 134
+
+
+State 124
+
+   36 parameter_list: parameter_list ',' . parameter_declaration
+
+    TYPE_NAME  shift, and go to state 2
+    CHAR       shift, and go to state 3
+    SHORT      shift, and go to state 4
+    INT        shift, and go to state 5
+    LONG       shift, and go to state 6
+    SIGNED     shift, and go to state 7
+    UNSIGNED   shift, and go to state 8
+    FLOAT      shift, and go to state 9
+    DOUBLE     shift, and go to state 10
+    VOID       shift, and go to state 11
+
+    type_specifier         go to state 105
+    parameter_declaration  go to state 135
+
+
+State 125
+
+   30 expression_statement: type_specifier IDENTIFIER '=' arithmetic_expression ';' .
+
+    $default  reduce using rule 30 (expression_statement)
+
+
+State 126
+
+   33 expression_statement: type_specifier IDENTIFIER '[' CONSTANT ']' . ';'
+
+    ';'  shift, and go to state 136
+
+
+State 127
+
+   34 expression_statement: IDENTIFIER '[' arithmetic_expression ']' '=' arithmetic_expression . ';'
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    ';'  shift, and go to state 137
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+
+State 128
+
+   26 if_statement: IF '(' arithmetic_expression ')' statement ELSE . statement
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+
+    type_specifier        go to state 41
+    jump_statement        go to state 19
+    statement             go to state 138
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    expression_statement  go to state 26
+
+
+State 129
+
+   24 while_statement: WHILE '(' arithmetic_expression ')' '{' '}' .
+
+    $default  reduce using rule 24 (while_statement)
+
+
+State 130
+
+   21 for_expression: IDENTIFIER . '=' arithmetic_expression
+   22               | IDENTIFIER . '=' '+' '+'
+
+    '='  shift, and go to state 139
+
+
+State 131
+
+   19 for_statement: FOR '(' expression_statement arithmetic_expression ';' for_expression . ')' compound_statement
+   20              | FOR '(' expression_statement arithmetic_expression ';' for_expression . ')' '{' '}'
+
+    ')'  shift, and go to state 140
+
+
+State 132
+
+   68 return_parameter: return_parameter ',' factor .
+
+    $default  reduce using rule 68 (return_parameter)
+
+
+State 133
+
+   41 function_definition: type_specifier IDENTIFIER '(' parameter_list ')' ';' .
+
+    $default  reduce using rule 41 (function_definition)
+
+
+State 134
+
+   39 function_definition: type_specifier IDENTIFIER '(' parameter_list ')' compound_statement .
+
+    $default  reduce using rule 39 (function_definition)
+
+
+State 135
+
+   36 parameter_list: parameter_list ',' parameter_declaration .
+
+    $default  reduce using rule 36 (parameter_list)
+
+
+State 136
+
+   33 expression_statement: type_specifier IDENTIFIER '[' CONSTANT ']' ';' .
+
+    $default  reduce using rule 33 (expression_statement)
+
+
+State 137
+
+   34 expression_statement: IDENTIFIER '[' arithmetic_expression ']' '=' arithmetic_expression ';' .
+
+    $default  reduce using rule 34 (expression_statement)
+
+
+State 138
+
+   26 if_statement: IF '(' arithmetic_expression ')' statement ELSE statement .
+
+    $default  reduce using rule 26 (if_statement)
+
+
+State 139
+
+   21 for_expression: IDENTIFIER '=' . arithmetic_expression
+   22               | IDENTIFIER '=' . '+' '+'
+
+    IDENTIFIER  shift, and go to state 34
+    CONSTANT    shift, and go to state 35
+    SIZEOF      shift, and go to state 36
+    '('         shift, and go to state 37
+    '+'         shift, and go to state 141
+
+    arithmetic_expression  go to state 142
+    term                   go to state 39
+    factor                 go to state 40
+
+
+State 140
+
+   19 for_statement: FOR '(' expression_statement arithmetic_expression ';' for_expression ')' . compound_statement
+   20              | FOR '(' expression_statement arithmetic_expression ';' for_expression ')' . '{' '}'
+
+    '{'  shift, and go to state 143
+
+    compound_statement  go to state 144
+
+
+State 141
+
+   22 for_expression: IDENTIFIER '=' '+' . '+'
+
+    '+'  shift, and go to state 145
+
+
+State 142
+
+   21 for_expression: IDENTIFIER '=' arithmetic_expression .
+   45 arithmetic_expression: arithmetic_expression . '+' term
+   46                      | arithmetic_expression . '-' term
+
+    '+'  shift, and go to state 59
+    '-'  shift, and go to state 60
+
+    $default  reduce using rule 21 (for_expression)
+
+
+State 143
+
+   20 for_statement: FOR '(' expression_statement arithmetic_expression ';' for_expression ')' '{' . '}'
+   27 compound_statement: '{' . statement_list '}'
+
+    IDENTIFIER  shift, and go to state 1
+    TYPE_NAME   shift, and go to state 2
+    CHAR        shift, and go to state 3
+    SHORT       shift, and go to state 4
+    INT         shift, and go to state 5
+    LONG        shift, and go to state 6
+    SIGNED      shift, and go to state 7
+    UNSIGNED    shift, and go to state 8
+    FLOAT       shift, and go to state 9
+    DOUBLE      shift, and go to state 10
+    VOID        shift, and go to state 11
+    IF          shift, and go to state 12
+    WHILE       shift, and go to state 13
+    FOR         shift, and go to state 14
+    RETURN      shift, and go to state 15
+    '{'         shift, and go to state 16
+    '}'         shift, and go to state 146
+
+    type_specifier        go to state 41
+    jump_statement        go to state 19
+    statement             go to state 20
+    for_statement         go to state 21
+    while_statement       go to state 22
+    if_statement          go to state 23
+    compound_statement    go to state 24
+    statement_list        go to state 42
+    expression_statement  go to state 26
+
+
+State 144
+
+   19 for_statement: FOR '(' expression_statement arithmetic_expression ';' for_expression ')' compound_statement .
+
+    $default  reduce using rule 19 (for_statement)
+
+
+State 145
+
+   22 for_expression: IDENTIFIER '=' '+' '+' .
+
+    $default  reduce using rule 22 (for_expression)
+
+
+State 146
+
+   20 for_statement: FOR '(' expression_statement arithmetic_expression ';' for_expression ')' '{' '}' .
+
+    $default  reduce using rule 20 (for_statement)
